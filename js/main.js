@@ -21,10 +21,8 @@ zlFetch(`${dotaApi}/heroStats`).then(response => {
     heroesList.appendChild(li);
   });
 
+  // FILTERS
 
-
-    // FILTERS
-    
   filtersDiv.addEventListener('change', event => {
     // CHECKBOXES
     const selectedCheckboxes = [
@@ -48,8 +46,6 @@ zlFetch(`${dotaApi}/heroStats`).then(response => {
     ].map(checkbox => checkbox.id);
     // Listen for
 
-  
-
     // attackType filter 12.37 (OLD)
     // const filtered = heroes
     // .filter(hero => {
@@ -67,20 +63,18 @@ zlFetch(`${dotaApi}/heroStats`).then(response => {
         return selectedAttackTypes.includes(attackType);
       })
       // Primary attribute filter
+
       .filter(hero => {
         if (selectedPrimaryAttributes.length === 0) return true;
         return selectedPrimaryAttributes.includes(hero.primary_attr);
-        // Checks if primary attribute was selected by user
-      });
-
-      .filter(hero => {
-        if (selectedRoles.length === 0) return true
-        const heroRoles = hero.roles.map(role => role.toLowerCase())
-        return selectedRoles.some(role => {
-          return heroRoles.includes(role)
-        })
       })
-
+      .filter(hero => {
+        if (selectedRoles.length === 0) return true;
+        const heroRoles = hero.roles.map(role => role.toLowerCase());
+        return selectedRoles.some(role => {
+          return heroRoles.includes(role);
+        });
+      });
 
     // Diplaying new info from inputs
     heroesList.innerHTML = '';
